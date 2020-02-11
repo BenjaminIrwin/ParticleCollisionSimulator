@@ -1,6 +1,10 @@
 import utils.MinPriorityQueue;
 
 import org.junit.Test;
+import org.junit.Assert.*;
+
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class PriorityQueueTest {
 
@@ -8,32 +12,27 @@ public class PriorityQueueTest {
   public void queueTestAdd() {
     MinPriorityQueue<Integer> q = new MinPriorityQueue<>();
     q.add(12);
-    q.display();
     q.add(121);
-    q.display();
     q.add(1);
-    q.display();
     q.add(0);
-    q.display();
+    Integer[] array = {null, 0, 1, 12, 121};
+    assertArrayEquals(q.queue.toArray(), array);
   }
 
   @Test
   public void queueTestRemove() {
     MinPriorityQueue<Integer> q = new MinPriorityQueue<>();
     q.add(12);
-    q.display();
     q.add(121);
-    q.display();
     q.add(1);
-    q.display();
     q.add(0);
-    q.display();
     q.add(-11);
-    q.display();
     q.add(31);
-    q.display();
     q.add(-12);
-    q.display();
     q.remove();
+
+    Integer[] array = {null, -11, 0, 12, 121, 1, 31};
+
+    assertArrayEquals(q.queue.toArray(), array);
   }
 }
