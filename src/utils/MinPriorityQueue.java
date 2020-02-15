@@ -27,7 +27,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
 
   /** Returns the number of elements currently in the queue. */
   public int size() {
-    return queue.size();
+    return queue.size() - 1;
   }
 
   private void swap(int i, int j) {
