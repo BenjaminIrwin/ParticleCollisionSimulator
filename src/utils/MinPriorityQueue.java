@@ -44,21 +44,21 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     }
 
     queue.add(elem);
-    recursive_sort(queue.size() - 1, get_parent_node(queue.size() - 1));
+    recursive_sort(queue.size() - 1);
   }
 
-  private void recursive_sort(int current_index, int parent_node_index) {
+  private void recursive_sort(int current_index) {
 
-    //System.out.println(queue + "  " + current_index + "  " + parent_node_index);
     if (current_index == 0) {
       return;
     }
 
+    int parent_node_index = get_parent_node(current_index);
+
     if (queue.get(parent_node_index).compareTo(queue.get(current_index)) > 0) {
       swap(current_index, parent_node_index);
       current_index = parent_node_index;
-      int new_parent_node_index = get_parent_node(current_index);
-      recursive_sort(current_index, new_parent_node_index);
+      recursive_sort(current_index);
     }
   }
 
@@ -73,19 +73,12 @@ public class MinPriorityQueue<T extends Comparable<T>> {
 
     if (left_node_index < size()) {
       left_child_node = queue.get(left_node_index);//If the left child node is bigger than the array, then the right child node must also be?!
+    } else {
+      return;
     }
 
     if (right_node_index < size()) {
       right_child_node = queue.get(right_node_index);
-    }
-
-    if (left_child_node == null && right_child_node == null) {//We are the last element in the heap
-      return;
-    }
-
-    if (left_child_node == null && right_child_node.compareTo(root_node) < 0) {//Does this ever happen? I don't think so
-      swap(root_node_index, right_node_index);
-      return;
     }
 
     if (right_child_node == null && left_child_node.compareTo(root_node) < 0) {//We are at the end and the last node is smaller
@@ -116,6 +109,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
 
   /** Removes, and returns, the element at the front of the queue. */
   public T remove() {//What about case where there is only one element in the queue?!?!
+
     if(isEmpty())
       return null;
 
@@ -125,7 +119,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
       queue.remove(0);
       return root;
     } else {
-      swap(0, size() - 1);
+      swap(0, size() - 1);//Is swap just inefficient?
       queue.remove(size() - 1);
       heapify(0);
       return root;
