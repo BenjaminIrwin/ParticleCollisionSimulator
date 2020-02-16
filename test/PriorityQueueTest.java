@@ -15,7 +15,7 @@ public class PriorityQueueTest {
     q.add(121);
     q.add(1);
     q.add(0);
-    Integer[] array = {null, 0, 1, 12, 121};
+    Integer[] array = {0, 1, 12, 121};
     assertArrayEquals(q.queue.toArray(), array);
   }
 
@@ -31,7 +31,7 @@ public class PriorityQueueTest {
     q.add(-12);
     q.remove();
 
-    Integer[] array = {null, -11, 0, 12, 121, 1, 31};
+    Integer[] array = {-11, 0, 12, 121, 1, 31};
 
     assertArrayEquals(q.queue.toArray(), array);
   }
