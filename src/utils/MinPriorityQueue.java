@@ -116,11 +116,20 @@ public class MinPriorityQueue<T extends Comparable<T>> {
 
   /** Removes, and returns, the element at the front of the queue. */
   public T remove() {//What about case where there is only one element in the queue?!?!
+    if(isEmpty())
+      return null;
+
     T root = queue.get(0);
-    swap(0, size() - 1);
-    queue.remove(size() - 1);
-    heapify(0);
-    return root;
+
+    if(size() == 1) {
+      queue.remove(0);
+      return root;
+    } else {
+      swap(0, size() - 1);
+      queue.remove(size() - 1);
+      heapify(0);
+      return root;
+    }
   }
 
   /** Returns true if the queue is empty, false otherwise. */
