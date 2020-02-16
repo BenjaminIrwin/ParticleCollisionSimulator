@@ -31,7 +31,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
   }
 
   private void swap(int i, int j) {
-    if (i >= size() || j >= size()) {
+    if (i > size() || j > size()) {
       return;
     }
     if (i < 0 || j < 0) {
@@ -49,7 +49,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
       return;
     }
     queue.add(elem);
-    recursive_sort(queue.size() - 1, parent_node(queue.size() - 1));
+    recursive_sort(queue.size(), parent_node(queue.size()));
   }
 
   private void recursive_sort(int current_index, int parent_node_index) {
@@ -75,11 +75,11 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     T left_child_node = null;
     T right_child_node = null;
 
-    if (left_node_index < size()) {
+    if (left_node_index <= size()) {
       left_child_node = queue.get(left_node_index);
     }
 
-    if (right_node_index < size()) {
+    if (right_node_index <= size()) {
       right_child_node = queue.get(right_node_index);
     }
 
@@ -121,14 +121,14 @@ public class MinPriorityQueue<T extends Comparable<T>> {
   /** Removes, and returns, the element at the front of the queue. */
   public T remove() {
     T root = queue.get(1);
-    swap(1, size() - 1);
-    queue.remove(size() - 1);
+    swap(1, size());
+    queue.remove(size());
     heapify(1);
     return root;
   }
 
   /** Returns true if the queue is empty, false otherwise. */
   public boolean isEmpty() {
-    return size() == 0;
+    return size() == -1;
   }
 }
