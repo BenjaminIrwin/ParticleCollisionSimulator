@@ -10,7 +10,7 @@ public abstract class Collision extends AbstractEvent {
     super(t);
     this.particles = ps;
     initial_hits = new int[particles.length];
-    for (int i = 0;i<particles.length;i++){
+    for (int i = 0; i < particles.length; i++){
       initial_hits[i] = particles[i].collisions();
     }
   }
@@ -18,7 +18,7 @@ public abstract class Collision extends AbstractEvent {
   /** Returns true if this Collision is (still) valid. */
   @Override
   public boolean isValid() {
-    for (int i = 0;i<particles.length;i++) {
+    for (int i = 0; i <particles.length; i++) {
       if (initial_hits[i] != particles[i].collisions()) {
         return false;
       }

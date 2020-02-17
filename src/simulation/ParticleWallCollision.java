@@ -12,8 +12,6 @@ public class ParticleWallCollision extends Collision {
    */
   public ParticleWallCollision(Particle particle, Wall wall, double time) {
     super(time,new Particle[]{particle});
-//    this.time = time;
-//    this.particles = new Particle[] {particle};
       this.wall = wall;
   }
 
