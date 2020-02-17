@@ -44,10 +44,10 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     }
 
     queue.add(elem);
-    recursive_sort(queue.size() - 1);
+    heapify_up(queue.size() - 1);
   }
 
-  private void recursive_sort(int current_index) {
+  private void heapify_up(int current_index) {
 
     if (current_index == 0) {
       return;
@@ -58,11 +58,11 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     if (queue.get(parent_node_index).compareTo(queue.get(current_index)) > 0) {
       swap(current_index, parent_node_index);
       current_index = parent_node_index;
-      recursive_sort(current_index);
+      heapify_up(current_index);
     }
   }
 
-  private void heapify(int root_node_index) {
+  private void heapify_down(int root_node_index) {
 
     T root_node = queue.get(root_node_index);
     int left_node_index = get_left_node(root_node_index);
@@ -72,7 +72,7 @@ public class MinPriorityQueue<T extends Comparable<T>> {
     T right_child_node = null;
 
     if (left_node_index < size()) {
-      left_child_node = queue.get(left_node_index);//If the left child node is bigger than the array, then the right child node must also be?!
+      left_child_node = queue.get(left_node_index);
     } else {
       return;
     }
@@ -81,16 +81,16 @@ public class MinPriorityQueue<T extends Comparable<T>> {
       right_child_node = queue.get(right_node_index);
     }
 
-    if (right_child_node == null && left_child_node.compareTo(root_node) < 0) {//We are at the end and the last node is smaller
+    if (right_child_node == null && left_child_node.compareTo(root_node) < 0) {
       swap(root_node_index, left_node_index);
       return;
     }
 
-    if (left_child_node == null || right_child_node == null) {//Child nodes are bigger so right place in heap
+    if (left_child_node == null || right_child_node == null) {
       return;
     }
 
-    if (left_child_node.compareTo(root_node) >= 0 && right_child_node.compareTo(root_node) >= 0) {//Child nodes are the same or bigger so right place.
+    if (left_child_node.compareTo(root_node) >= 0 && right_child_node.compareTo(root_node) >= 0) {
       return;
     }
 
@@ -99,16 +99,17 @@ public class MinPriorityQueue<T extends Comparable<T>> {
       child_min_index = left_node_index;
     }
     if (right_child_node.compareTo(root_node) < 0
-        && right_child_node.compareTo(left_child_node) < 0) {
+            && right_child_node.compareTo(left_child_node) < 0) {
       child_min_index = right_node_index;
     }
 
     swap(root_node_index, child_min_index);
-    heapify(child_min_index);
+    heapify_down(child_min_index);
+
   }
 
   /** Removes, and returns, the element at the front of the queue. */
-  public T remove() {//What about case where there is only one element in the queue?!?!
+  public T remove() {
 
     if(isEmpty())
       return null;
@@ -119,9 +120,9 @@ public class MinPriorityQueue<T extends Comparable<T>> {
       queue.remove(0);
       return root;
     } else {
-      swap(0, size() - 1);//Is swap just inefficient?
+      swap(0, size() - 1);
       queue.remove(size() - 1);
-      heapify(0);
+      heapify_down(0);
       return root;
     }
   }

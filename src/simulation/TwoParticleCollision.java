@@ -3,8 +3,9 @@ package simulation;
 public class TwoParticleCollision extends Collision {
 
   public TwoParticleCollision(Particle p1, Particle p2, double time) {
-    this.particles = new Particle[] {p1, p2};
-    this.time = time;
+    super(time,new Particle[]{p1,p2});
+//    this.particles = new Particle[] {p1, p2};
+//    this.time = time;
   }
 
   @Override

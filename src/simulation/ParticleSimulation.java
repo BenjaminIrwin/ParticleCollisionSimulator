@@ -55,17 +55,30 @@ public class ParticleSimulation implements Runnable, ParticleEventHandler {
     queue.add(new Tick(clock + 1));
   }
 
+//  @Override
+//  public void reactTo(Collision c) {
+//    Particle[] particles = c.getParticles();
+//    if (particles.length == 1) {
+//      ParticleWallCollision wallCollision = (ParticleWallCollision) c;
+//      queue.add(
+//          new ParticleWallCollision(
+//              particles[0], wallCollision.wall, clock + FRAME_INTERVAL_MILLIS));
+//    } else {
+//      queue.add(
+//          new TwoParticleCollision(particles[0], particles[1], clock + FRAME_INTERVAL_MILLIS));
+//    }
+//  }
+
   @Override
   public void reactTo(Collision c) {
-    Particle[] particles = c.getParticles();
-    if (particles.length == 1) {
-      ParticleWallCollision wallCollision = (ParticleWallCollision) c;
-      queue.add(
-          new ParticleWallCollision(
-              particles[0], wallCollision.wall, clock + FRAME_INTERVAL_MILLIS));
-    } else {
-      queue.add(
-          new TwoParticleCollision(particles[0], particles[1], clock + FRAME_INTERVAL_MILLIS));
+
+    for(Particle p:c.getParticles()){
+      for (Event event : model.predictCollisions(p,clock)) {
+        queue.add(event);
     }
+//    for (Event event : model.predictCollisions(p,clock)) {
+//      queue.add(event);
+    }
+
   }
 }

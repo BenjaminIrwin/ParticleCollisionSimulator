@@ -2,7 +2,7 @@ package simulation;
 
 public class ParticleWallCollision extends Collision {
 
-  public Wall wall = null;
+  public Wall wall;
   /**
    * Constructor for Collision
    *
@@ -11,9 +11,10 @@ public class ParticleWallCollision extends Collision {
    * @param time
    */
   public ParticleWallCollision(Particle particle, Wall wall, double time) {
-    this.time = time;
-    this.particles = new Particle[] {particle};
-    this.wall = wall;
+    super(time,new Particle[]{particle});
+//    this.time = time;
+//    this.particles = new Particle[] {particle};
+      this.wall = wall;
   }
 
   @Override
